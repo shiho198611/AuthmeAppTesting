@@ -2,7 +2,6 @@ plugins {
     kotlin("kapt")
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
     id("androidx.room")
 }
 
@@ -15,6 +14,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String", "API_ROOT", "\"https://api.github.com/\"")
     }
 
     buildTypes {
@@ -36,6 +37,9 @@ android {
 
     room {
         schemaDirectory("$projectDir/schemas")
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -66,11 +70,12 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
 
     val pagingVersion = "3.2.1"
-    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
-    implementation("androidx.paging:paging-compose:3.3.0-alpha04")
+    api ("androidx.paging:paging-runtime-ktx:$pagingVersion")
+    api ("androidx.paging:paging-compose:3.3.0-alpha04")
 
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    val koinAndroidVersion = "3.5.3"
+    implementation("io.insert-koin:koin-android:$koinAndroidVersion")
+    implementation("io.insert-koin:koin-androidx-compose:$koinAndroidVersion")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:$roomVersion")
@@ -78,4 +83,13 @@ dependencies {
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    androidTestImplementation("io.insert-koin:koin-android-test:$koinAndroidVersion")
+    androidTestImplementation("io.insert-koin:koin-test:$koinAndroidVersion")
+    { exclude("org.mockito", "mockito-inline") }
+    androidTestImplementation("org.mockito:mockito-android:2.24.5")
+
+
 }

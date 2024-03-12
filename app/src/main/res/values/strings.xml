@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AuthmeAppTesting</string>
+    <string name="text_staff">STAFF</string>
+    <string name="text_search">Search</string>
+    <string name="text_no_blog">No Blog.</string>
+    <string name="text_no_content">No content.</string>
+    <string name="text_no_location">No location.</string>
 </resources>
